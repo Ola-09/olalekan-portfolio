@@ -15,6 +15,7 @@ export default async function ProjectPage({params}:{params:Promise<{slug:string}
   </div><aside>
    <section className="detail-block"><h2>Technology</h2><div className="tags">{p.stack.map(t=><span className="tag" key={t}>{t}</span>)}</div></section>
    <section className="detail-block"><h2>Status</h2><p className="accent mono">{p.status}</p></section>
+   <section className="detail-block"><h2>Access</h2>{p.liveUrl ? <p><a className="accent" href={p.liveUrl} target="_blank" rel="noreferrer">Open live project ↗</a></p> : <p className="muted">Live URL not available yet.</p>}{p.sourceUrl ? <p><a className="accent" href={p.sourceUrl} target="_blank" rel="noreferrer">{p.sourceLabel ?? "View source"} ↗</a></p> : null}</section>
    <a className="btn" href="/Olalekan-Ajiboye-CV.pdf" download><Download size={16}/> Download CV</a>
   </aside></div>
  </div></main>
