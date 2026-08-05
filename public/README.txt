@@ -1,0 +1,1 @@
+Add your portrait as public/profile.jpg when ready. The hero currently uses an OA placeholder.
