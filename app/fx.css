@@ -1,0 +1,109 @@
+:root{--accent-rgb:217,255,98}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+button.btn{cursor:pointer;font-family:inherit}
+
+/* chrome: progress, cursor glow, nav state */
+#scroll-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:80;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;pointer-events:none;box-shadow:0 0 12px rgba(var(--accent-rgb),.6)}
+#cursor-glow{position:fixed;left:0;top:0;width:0;height:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .3s}
+#cursor-glow:before{content:"";position:absolute;left:-210px;top:-210px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(var(--accent-rgb),.07),transparent 65%)}
+.nav-links a{position:relative}
+.nav-links a:after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nav-links a.is-active{color:var(--accent)}
+.nav-links a.is-active:after{transform:scaleX(1)}
+
+/* one orchestrated load sequence */
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.hero-copy-wrap>*{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.hero-copy-wrap>:nth-child(1){animation-delay:.05s}
+.hero-copy-wrap>:nth-child(2){animation-delay:.15s}
+.hero-copy-wrap>:nth-child(3){animation-delay:.45s}
+.hero-copy-wrap>:nth-child(4){animation-delay:.6s}
+.hero-copy-wrap>:nth-child(5){animation-delay:.75s}
+.hero-visual{animation:fadein 1.2s .3s both}
+
+/* heading reveal (only when JS is ready) */
+.fx-ready [data-reveal]{transition:clip-path .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.fx-ready [data-reveal]:not(.is-in){clip-path:inset(0 0 100% 0);transform:translateY(22px);opacity:0}
+.fx-ready [data-reveal].is-in{clip-path:inset(-10% -2% -10% -2%)}
+.fx-ready [data-reveal="card"]{transition:opacity .65s ease,translate .65s cubic-bezier(.2,.7,.2,1)}
+.fx-ready [data-reveal="card"]:not(.is-in){clip-path:none;translate:0 18px;opacity:0}
+.fx-ready [data-reveal="card"].is-in{clip-path:none;translate:0 0}
+
+/* hero network */
+.field-scene canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:crosshair}
+.field-scene .core-node{pointer-events:none}
+.field-hint{position:absolute;left:14px;bottom:10px;z-index:3;font-size:8px;letter-spacing:.1em;color:var(--soft);pointer-events:none;transition:opacity .5s}
+.field-hint.is-gone{opacity:0}
+
+/* spotlight + tilt */
+.fx-spot{position:relative}
+.fx-spot:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(var(--accent-rgb),.10),transparent 70%)}
+.fx-spot:hover:after{opacity:1}
+.project-card{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:border-color .25s,transform .2s ease-out;will-change:transform}
+.project-card:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-4px)}
+.project-arrow{transition:background .25s,color .25s,transform .3s}
+.project-card:hover .project-arrow{background:var(--accent);color:#10130b;transform:rotate(45deg)}
+.text-link svg,.discipline-arrow{transition:transform .25s,color .2s}
+.text-link:hover svg,.discipline:hover .discipline-arrow{transform:translate(3px,-3px)}
+
+/* project artwork motion */
+@keyframes eq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.45)}100%{box-shadow:0 0 0 14px rgba(var(--accent-rgb),0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{50%{transform:translateY(-4px)}}
+@keyframes shimmer{0%,100%{opacity:.5}50%{opacity:1}}
+.waveform span,.signal-bars span{animation:eq 1.6s ease-in-out infinite}
+.waveform span{transform-origin:50% 50%}
+.signal-bars span{transform-origin:50% 100%}
+.caret{display:inline-block;width:6px;height:10px;margin-left:3px;vertical-align:-1px;background:var(--accent);animation:blink 1s steps(1) infinite}
+.map-pin{animation:ping 2.2s ease-out infinite}.pin-b{animation-delay:.7s}.pin-c{animation-delay:1.4s}
+.lock-orbit{position:relative}
+.lock-orbit:after{content:"";position:absolute;inset:-9px;border:1px dashed rgba(184,192,255,.35);border-radius:50%;animation:spin 18s linear infinite}
+.lock-shape{animation:float 4s ease-in-out infinite}
+.aurevia-window div{animation:shimmer 3.2s ease-in-out infinite}
+.aurevia-window div:nth-child(2){animation-delay:.5s}.aurevia-window div:nth-child(3){animation-delay:1s}.aurevia-window div:nth-child(4){animation-delay:1.5s}
+
+/* terminal additions */
+.terminal-chips{display:flex;flex-wrap:wrap;gap:6px;padding:9px 12px;border-top:1px solid var(--line)}
+.terminal-chips button{padding:4px 8px;background:transparent;border:1px solid var(--line);border-radius:2px;color:var(--muted);font:9px var(--mono);cursor:pointer;transition:color .2s,border-color .2s}
+.terminal-chips button:hover{color:var(--accent);border-color:var(--accent)}
+
+/* packet game */
+.play-layout{display:grid;grid-template-columns:.7fr 1.3fr;gap:60px;align-items:center}
+.play-layout h2{font-size:clamp(32px,4.3vw,54px);font-weight:500;letter-spacing:-.07em;line-height:1.12;margin:17px 0 0}
+.game-shell{min-width:0;border:1px solid var(--line-strong);background:#0b0f0a}
+.game-hud{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:9px;letter-spacing:.1em;color:var(--soft)}
+.game-hud b{margin-left:4px;font-weight:500;color:var(--text)}
+.game-stage{position:relative;height:clamp(320px,46vw,430px);overflow:hidden;background:radial-gradient(ellipse at center,rgba(var(--accent-rgb),.05),transparent 70%)}
+.game-stage canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:manipulation}
+.game-overlay{position:absolute;inset:0;display:grid;align-content:center;justify-items:start;gap:14px;padding:32px;background:rgba(11,13,10,.84);backdrop-filter:blur(3px)}
+.game-overlay h3{margin:0;font-size:28px;letter-spacing:-.05em;font-weight:600}
+.game-overlay p{margin:0;max-width:430px;color:var(--muted);font-size:12px;line-height:1.9}
+.game-stats{display:flex;flex-wrap:wrap;gap:22px}
+.game-stats div{font:9px var(--mono);letter-spacing:.08em;color:var(--soft)}
+.game-stats strong{display:block;font:600 22px var(--sans);letter-spacing:-.04em;color:var(--text)}
+.game-legend{display:flex;flex-wrap:wrap;gap:8px 22px;padding:11px 16px;border-top:1px solid var(--line);font-size:9px;color:var(--soft)}
+.game-legend i{display:inline-block;width:8px;height:8px;margin-right:7px;border:1.5px solid}
+.lg-bad{color:#ff6b5c}.lg-ok{color:var(--accent);border-radius:50%}
+
+@media(max-width:950px){.play-layout{grid-template-columns:1fr;gap:34px}}
+@media(max-width:680px){.game-hud{font-size:8px;padding:10px 12px}.game-overlay{padding:22px}.game-stats{gap:16px}}
+@media(prefers-reduced-motion:reduce){.hero-copy-wrap>*,.hero-visual{animation:none}.mesh-packet{display:none}.project-card,.project-card:hover{transform:none}}
+
+.project-art>img{object-fit:cover;object-position:center}
+.project-mesh .project-art>img{object-fit:contain;background:#d7d9de}
+.project-gallery{padding:52px 0 12px;border-bottom:1px solid var(--line)}
+.project-gallery-heading{margin-bottom:26px}
+.project-gallery-heading h2{margin:8px 0 0;font-size:clamp(28px,4vw,42px);font-weight:500;letter-spacing:-.06em;line-height:1.1}
+.project-gallery-list{display:grid;gap:28px}
+.project-gallery-item{margin:0}
+.project-gallery-frame{display:flex;justify-content:center;overflow:hidden;border:1px solid var(--line);background:#080a08}
+.project-gallery-frame img{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain}
+.project-gallery-item figcaption{display:flex;justify-content:space-between;gap:12px;padding:10px 2px;color:var(--soft);font:9px var(--mono);letter-spacing:.08em}
+.fx-ready .project-gallery-item{transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.fx-ready .project-gallery-item:not(.is-in){opacity:0;transform:translateY(24px)}
+.fx-ready .project-gallery-item.is-in{opacity:1;transform:none}
+@media(max-width:680px){.project-gallery{padding-top:36px}.project-gallery-list{gap:20px}.project-gallery-frame img{max-height:65vh}}
+@media(prefers-reduced-motion:reduce){.fx-ready .project-gallery-item{transition:none}.fx-ready .project-gallery-item:not(.is-in){opacity:1;transform:none}}
